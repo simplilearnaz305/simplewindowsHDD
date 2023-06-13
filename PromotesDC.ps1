@@ -11,3 +11,6 @@ Install-ADDSForest -DomainName $domainName -DomainMode Win2012R2 -ForestMode Win
 
 # Set the DSRM password
 Set-ADDSRMPassword -Reset -Password (ConvertTo-SecureString -String $dsrmPassword -AsPlainText -Force) 
+
+# Restart the server to complete the configuration of Active Directory installation
+Restart-Computer -Force

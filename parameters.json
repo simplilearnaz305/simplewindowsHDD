@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "value": "contosovm"
+        },
+        "adminUsername": {
+            "value": "contosouser"
+        },
+        "adminPassword": {
+            "value": "Passw0rd@356"
+        },
+        "location": {
+            "value": "eastus"
+        },
+        "vmSize": {
+            "value": "Standard_DS2_v2"
+        }
+    }
+}

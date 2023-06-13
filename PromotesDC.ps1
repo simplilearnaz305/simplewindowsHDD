@@ -1,20 +1,13 @@
+ $forestName = "vinicloud.ga"
+$domainName = "vinicloud.ga"
+
+# Set the DSRM password
+$dsrmPassword = "Passw0rd@356"
+
 # Promote the server to a domain controller
-$adminCreds = Get-Credential -Message "Enter the credentials for a user with administrative privileges"
-$domainName = "yourdomain.com"
-$safeModePassword = ConvertTo-SecureString -String "P@ssw0rd" -AsPlainText -Force
+Install-ADDSForest -DomainName $domainName -DomainMode Win2012R2 -ForestMode Win2012R2 `
+                   -DatabasePath "C:\Windows\NTDS" -LogPath "C:\Windows\NTDS" -SysvolPath "C:\Windows\SYSVOL" `
+                   -InstallDns -Force -NoRebootOnCompletion
 
-$promoteParams = @{
-    DomainName = $domainName
-    Credential = $adminCreds
-    SafeModeAdministratorPassword = $safeModePassword
-    InstallDns = $true
-    Force = $true
-    ErrorAction = 'Stop'
-}
-
-try {
-    Install-ADDSDomainController @promoteParams -NoRebootOnCompletion
-    Write-Host "Domain controller promotion completed successfully."
-} catch {
-    Write-Host "Error promoting the server to a domain controller:`n$($_.Exception.Message)"
-}
+# Set the DSRM password
+Set-ADDSRMPassword -Reset -Password (ConvertTo-SecureString -String $dsrmPassword -AsPlainText -Force) 
